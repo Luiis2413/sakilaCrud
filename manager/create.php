@@ -5,16 +5,22 @@ include '../db_connect.php';
 $addresses_sql = "SELECT address_id, address FROM address";
 $addresses_result = $mysqli->query($addresses_sql);
 
+// Obtener tiendas disponibles para el dropdown
+$stores_sql = "SELECT store_id FROM store";
+$stores_result = $mysqli->query($stores_sql);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $email = $_POST['email'];
     $address_id = $_POST['address_id'];
+    $store_id = $_POST['store_id']; // Nuevo campo para store_id
     $username = $_POST['username'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Encriptar la contraseña
 
-    $sql = "INSERT INTO staff (first_name, last_name, email, address_id, username, password) 
-            VALUES ('$first_name', '$last_name', '$email', $address_id, '$username', '$password')";
+    // Insertar el gerente (staff) con el store_id
+    $sql = "INSERT INTO staff (first_name, last_name, email, address_id, store_id, username, password) 
+            VALUES ('$first_name', '$last_name', '$email', $address_id, $store_id, '$username', '$password')";
     $mysqli->query($sql);
 
     header("Location: index.php");
@@ -44,6 +50,14 @@ include '../header.php';
         <select class="form-control" id="address_id" name="address_id" required>
             <?php while($address = $addresses_result->fetch_assoc()): ?>
                 <option value="<?= $address['address_id'] ?>"><?= $address['address'] ?></option>
+            <?php endwhile; ?>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="store_id" class="form-label">Store</label>
+        <select class="form-control" id="store_id" name="store_id" required>
+            <?php while($store = $stores_result->fetch_assoc()): ?>
+                <option value="<?= $store['store_id'] ?>">Store <?= $store['store_id'] ?></option>
             <?php endwhile; ?>
         </select>
     </div>

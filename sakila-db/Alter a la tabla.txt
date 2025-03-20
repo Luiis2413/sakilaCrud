@@ -1,2 +1,5 @@
 ALTER TABLE store
 ADD CONSTRAINT unique_manager UNIQUE (manager_staff_id);
+
+
+ALTER TABLE store DROP INDEX idx_unique_manager;
