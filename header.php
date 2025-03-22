@@ -49,6 +49,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../manager/index.php">Manager</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../addresses/cityCountry.php">City/Contry</a>
+                    </li>
                 </ul>
             </div>
         </div>
